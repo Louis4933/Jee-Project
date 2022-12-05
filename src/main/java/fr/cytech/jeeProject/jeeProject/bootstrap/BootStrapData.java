@@ -1,8 +1,8 @@
 package fr.cytech.jeeProject.jeeProject.bootstrap;
 
-import fr.cytech.jeeProject.jeeProject.domain.Author;
-import fr.cytech.jeeProject.jeeProject.domain.Book;
-import fr.cytech.jeeProject.jeeProject.domain.Publisher;
+import fr.cytech.jeeProject.jeeProject.beans.Author;
+import fr.cytech.jeeProject.jeeProject.beans.Book;
+import fr.cytech.jeeProject.jeeProject.beans.Publisher;
 import fr.cytech.jeeProject.jeeProject.repositories.AuthorRepository;
 import fr.cytech.jeeProject.jeeProject.repositories.BookRepository;
 import fr.cytech.jeeProject.jeeProject.repositories.PublisherRepository;
@@ -37,7 +37,7 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("Publisher count : " + publisherRepository.count());
 
         Author eric = new Author("Eric", "Evans");
-        Book ddd = new Book("Domain Driven Design", "123123");
+        Book ddd = new Book("Domain Driven Design", 123123);
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
 

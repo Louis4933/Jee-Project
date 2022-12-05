@@ -1,4 +1,6 @@
-package fr.cytech.jeeProject.jeeProject.domain;
+package fr.cytech.jeeProject.jeeProject.beans;
+
+import fr.cytech.jeeProject.jeeProject.enums.BookFormat;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,8 +13,9 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String title;
-    private String isbn;
+    private String title, resume;
+    private int numberPage, publicationDate, isbn;
+    private BookFormat bookFormat;
 
     @ManyToOne
     private Publisher publisher;
@@ -25,19 +28,12 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String isbn) {
+    public Book(String title, int isbn) {
         this.title = title;
         this.isbn = isbn;
     }
 
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
-
+    @Id
     public Long getId() {
         return id;
     }
@@ -54,12 +50,52 @@ public class Book {
         this.title = title;
     }
 
-    public String getIsbn() {
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
+
+    public int getNumberPage() {
+        return numberPage;
+    }
+
+    public void setNumberPage(int numberPage) {
+        this.numberPage = numberPage;
+    }
+
+    public int getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(int publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public int getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
+    public void setIsbn(int isbn) {
         this.isbn = isbn;
+    }
+
+    public BookFormat getBookFormat() {
+        return bookFormat;
+    }
+
+    public void setBookFormat(BookFormat bookFormat) {
+        this.bookFormat = bookFormat;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public Set<Author> getAuthors() {

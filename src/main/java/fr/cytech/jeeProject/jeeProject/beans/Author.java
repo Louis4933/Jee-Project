@@ -1,4 +1,4 @@
-package fr.cytech.jeeProject.jeeProject.domain;
+package fr.cytech.jeeProject.jeeProject.beans;
 
 import javax.persistence.*;
 import java.util.HashSet;

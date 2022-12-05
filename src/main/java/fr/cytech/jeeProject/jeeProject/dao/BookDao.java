@@ -1,13 +1,12 @@
 package fr.cytech.jeeProject.jeeProject.dao;
 
-import fr.cytech.jeeProject.jeeProject.domain.Book;
+import fr.cytech.jeeProject.jeeProject.beans.Book;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
