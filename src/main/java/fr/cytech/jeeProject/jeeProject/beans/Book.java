@@ -3,7 +3,9 @@ package fr.cytech.jeeProject.jeeProject.beans;
 import fr.cytech.jeeProject.jeeProject.enums.BookFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,22 +15,35 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String title, resume;
-    private int numberPage, publicationDate, isbn;
+    @Column(name = "title", length = 64, nullable = false)
+    private String title;
+
+    @Column(name = "resume", length = 64, nullable = false)
+    private String resume;
+
+    @Column(name = "numberPage", length = 64, nullable = false)
+    private int numberPage;
+
+    @Column(name = "publicationDate", length = 64, nullable = false)
+    private String publicationDate;
+
+    @Column(name = "isbn", length = 64, nullable = false)
+    private String isbn;
     private BookFormat bookFormat;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors = new HashSet<>();
+    private List<Author> authors = new ArrayList<>();
 
     public Book() {
     }
 
-    public Book(String title, int isbn) {
+    public Book(String title, String isbn) {
         this.title = title;
         this.isbn = isbn;
     }
@@ -66,19 +81,19 @@ public class Book {
         this.numberPage = numberPage;
     }
 
-    public int getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(int publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 
-    public int getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -98,11 +113,11 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 

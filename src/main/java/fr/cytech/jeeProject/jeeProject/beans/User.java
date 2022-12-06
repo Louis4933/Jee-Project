@@ -3,20 +3,40 @@ package fr.cytech.jeeProject.jeeProject.beans;
 import fr.cytech.jeeProject.jeeProject.enums.UserRole;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Access(AccessType.PROPERTY)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String email, password, name, surname, address;
+    @Column(name = "email", length = 64, nullable = false)
+    private String email;
+
+    @Column(name = "password", length = 64, nullable = false)
+    private String password;
+
+    @Column(name = "name", length = 64, nullable = false)
+    private String name;
+
+    @Column(name = "surname", length = 64, nullable = false)
+    private String surname;
+
+    @Column(name = "address", length = 64, nullable = false)
+    private String address;
+
     private UserRole userRole;
 
-    @ElementCollection
-    private List<Integer> favorites;
+    @ManyToMany(targetEntity = Book.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_favorites", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    public List<Book> favorites = new ArrayList<>();
 
     public User(){
 
@@ -79,11 +99,11 @@ public class User {
         this.userRole = userRole;
     }
 
-    public List<Integer> getFavorites() {
+    public List<Book> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(List<Integer> favorites) {
+    public void setFavorites(List<Book> favorites) {
         this.favorites = favorites;
     }
 }
