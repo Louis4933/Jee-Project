@@ -10,39 +10,21 @@ import java.util.Set;
 @Entity
 public class Publisher {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @Column(name = "addressLine1", length = 64, nullable = false)
     private String addressLine1;
 
-    @Column(name = "city", length = 64, nullable = false)
     private String city;
 
-    @Column(name = "state", length = 64, nullable = false)
     private String state;
 
-    @Column(name = "zip", length = 64, nullable = false)
     private String zip;
 
-    @OneToMany
-    @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name = "publisher_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books = new ArrayList<>();
 
     public Publisher() {
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 
     @Override
@@ -72,6 +54,8 @@ public class Publisher {
         return id != null ? id.hashCode() : 0;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -80,6 +64,7 @@ public class Publisher {
         this.id = id;
     }
 
+    @Column(name = "name", length = 64)
     public String getName() {
         return name;
     }
@@ -88,6 +73,7 @@ public class Publisher {
         this.name = name;
     }
 
+    @Column(name = "addressLine1", length = 64)
     public String getAddressLine1() {
         return addressLine1;
     }
@@ -96,6 +82,7 @@ public class Publisher {
         this.addressLine1 = addressLine1;
     }
 
+    @Column(name = "city", length = 64)
     public String getCity() {
         return city;
     }
@@ -104,6 +91,7 @@ public class Publisher {
         this.city = city;
     }
 
+    @Column(name = "state", length = 64)
     public String getState() {
         return state;
     }
@@ -112,12 +100,24 @@ public class Publisher {
         this.state = state;
     }
 
+    @Column(name = "zip", length = 64)
     public String getZip() {
         return zip;
     }
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name = "publisher_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
 }

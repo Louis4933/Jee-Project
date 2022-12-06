@@ -11,33 +11,21 @@ import java.util.Set;
 @Entity
 public class Book {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "title", length = 64, nullable = false)
     private String title;
 
-    @Column(name = "resume", length = 64, nullable = false)
     private String resume;
 
-    @Column(name = "numberPage", length = 64, nullable = false)
     private int numberPage;
 
-    @Column(name = "publicationDate", length = 64, nullable = false)
     private String publicationDate;
 
-    @Column(name = "isbn", length = 64, nullable = false)
     private String isbn;
     private BookFormat bookFormat;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @ManyToMany
-    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors = new ArrayList<>();
 
     public Book() {
@@ -48,7 +36,9 @@ public class Book {
         this.isbn = isbn;
     }
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -57,6 +47,7 @@ public class Book {
         this.id = id;
     }
 
+    @Column(name = "title", length = 64)
     public String getTitle() {
         return title;
     }
@@ -65,6 +56,7 @@ public class Book {
         this.title = title;
     }
 
+    @Column(name = "resume", length = 64)
     public String getResume() {
         return resume;
     }
@@ -73,6 +65,7 @@ public class Book {
         this.resume = resume;
     }
 
+    @Column(name = "numberPage", length = 64)
     public int getNumberPage() {
         return numberPage;
     }
@@ -81,6 +74,7 @@ public class Book {
         this.numberPage = numberPage;
     }
 
+    @Column(name = "publicationDate", length = 64)
     public String getPublicationDate() {
         return publicationDate;
     }
@@ -89,6 +83,7 @@ public class Book {
         this.publicationDate = publicationDate;
     }
 
+    @Column(name = "isbn", length = 64)
     public String getIsbn() {
         return isbn;
     }
@@ -105,6 +100,8 @@ public class Book {
         this.bookFormat = bookFormat;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id")
     public Publisher getPublisher() {
         return publisher;
     }
@@ -113,6 +110,9 @@ public class Book {
         this.publisher = publisher;
     }
 
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
     public List<Author> getAuthors() {
         return authors;
     }

@@ -4,53 +4,39 @@ import fr.cytech.jeeProject.jeeProject.enums.UserRole;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Access(AccessType.PROPERTY)
-public class User {
+public class SiteUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "email", length = 64, nullable = false)
     private String email;
-
-    @Column(name = "password", length = 64, nullable = false)
     private String password;
 
-    @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @Column(name = "surname", length = 64, nullable = false)
     private String surname;
 
-    @Column(name = "address", length = 64, nullable = false)
     private String address;
 
     private UserRole userRole;
-
-    @ManyToMany(targetEntity = Book.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_favorites", joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id"))
     public List<Book> favorites = new ArrayList<>();
 
-    public User(){
+    public SiteUser(){
 
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Id
-    public Long getId() {
-        return id;
-    }
-
+    @Column(name = "email", length = 64)
     public String getEmail() {
         return email;
     }
@@ -59,6 +45,7 @@ public class User {
         this.email = email;
     }
 
+    @Column(name = "password", length = 64)
     public String getPassword() {
         return password;
     }
@@ -67,6 +54,7 @@ public class User {
         this.password = password;
     }
 
+    @Column(name = "name", length = 64)
     public String getName() {
         return name;
     }
@@ -75,6 +63,7 @@ public class User {
         this.name = name;
     }
 
+    @Column(name = "surname", length = 64)
     public String getSurname() {
         return surname;
     }
@@ -83,6 +72,7 @@ public class User {
         this.surname = surname;
     }
 
+    @Column(name = "address", length = 64)
     public String getAddress() {
         return address;
     }
@@ -99,6 +89,10 @@ public class User {
         this.userRole = userRole;
     }
 
+    @Access(AccessType.PROPERTY)
+    @ManyToMany(targetEntity = Book.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_favorites", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
     public List<Book> getFavorites() {
         return favorites;
     }

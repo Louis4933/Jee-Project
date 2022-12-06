@@ -9,20 +9,12 @@ import java.util.Set;
 @Entity
 public class Author {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "firstName", length = 64, nullable = false)
     private String firstName;
 
-    @Column(name = "lastName", length = 64, nullable = false)
     private String lastName;
 
-
-    @OneToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books = new ArrayList<>();
 
     public Author() {
@@ -33,6 +25,8 @@ public class Author {
         this.lastName = lastName;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -41,6 +35,7 @@ public class Author {
         this.id = id;
     }
 
+    @Column(name = "firstName", length = 64)
     public String getFirstName() {
         return firstName;
     }
@@ -49,6 +44,7 @@ public class Author {
         this.firstName = firstName;
     }
 
+    @Column(name = "lastName", length = 64)
     public String getLastName() {
         return lastName;
     }
@@ -57,6 +53,9 @@ public class Author {
         this.lastName = lastName;
     }
 
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
     public List<Book> getBooks() {
         return books;
     }

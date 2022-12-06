@@ -3,23 +3,23 @@ package fr.cytech.jeeProject.jeeProject.bootstrap;
 import fr.cytech.jeeProject.jeeProject.beans.Author;
 import fr.cytech.jeeProject.jeeProject.beans.Book;
 import fr.cytech.jeeProject.jeeProject.beans.Publisher;
-import fr.cytech.jeeProject.jeeProject.repositories.AuthorRepository;
-import fr.cytech.jeeProject.jeeProject.repositories.BookRepository;
-import fr.cytech.jeeProject.jeeProject.repositories.PublisherRepository;
+import fr.cytech.jeeProject.jeeProject.dao.AuthorDao;
+import fr.cytech.jeeProject.jeeProject.dao.BookDao;
+import fr.cytech.jeeProject.jeeProject.dao.PublisherDao;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
 
-    private final AuthorRepository authorRepository;
-    private final BookRepository bookRepository;
-    private final PublisherRepository publisherRepository;
+    private final AuthorDao authorDao;
+    private final BookDao bookDao;
+    private final PublisherDao publisherDao;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
-        this.authorRepository = authorRepository;
-        this.bookRepository = bookRepository;
-        this.publisherRepository = publisherRepository;
+    public BootStrapData(AuthorDao authorDao, BookDao bookDao, PublisherDao publisherDao) {
+        this.authorDao = authorDao;
+        this.bookDao = bookDao;
+        this.publisherDao = publisherDao;
     }
 
     @Override
@@ -32,9 +32,9 @@ public class BootStrapData implements CommandLineRunner {
         publisher.setCity("St Petersbourg");
         publisher.setState("FL");
 
-        publisherRepository.save(publisher);
+        publisherDao.save(publisher);
 
-        System.out.println("Publisher count : " + publisherRepository.count());
+        System.out.println("Publisher count : " + publisherDao.count());
 
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain Driven Design", "123123");
@@ -44,11 +44,11 @@ public class BootStrapData implements CommandLineRunner {
         ddd.setPublisher(publisher);
         publisher.getBooks().add(ddd);
 
-        authorRepository.save(eric);
-        bookRepository.save(ddd);
-        publisherRepository.save(publisher);
+        authorDao.save(eric);
+        bookDao.save(ddd);
+        publisherDao.save(publisher);
 
-        System.out.println("Number of Books: " + bookRepository.count());
+        System.out.println("Number of Books: " + bookDao.count());
         System.out.println("Publisher Number of Books: " + publisher.getBooks().size());
     }
 }
