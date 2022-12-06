@@ -2,7 +2,9 @@ package fr.cytech.jeeProject.jeeProject.beans;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,24 +14,34 @@ public class Publisher {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
+
+    @Column(name = "addressLine1", length = 64, nullable = false)
     private String addressLine1;
+
+    @Column(name = "city", length = 64, nullable = false)
     private String city;
+
+    @Column(name = "state", length = 64, nullable = false)
     private String state;
+
+    @Column(name = "zip", length = 64, nullable = false)
     private String zip;
 
     @OneToMany
-    @JoinColumn(name = "publisher_id")
-    private Set<Book> books = new HashSet<>();
+    @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name = "publisher_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> books = new ArrayList<>();
 
     public Publisher() {
     }
 
-    public Set<Book> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 

@@ -1,7 +1,9 @@
 package fr.cytech.jeeProject.jeeProject.beans;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,11 +13,17 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "firstName", length = 64, nullable = false)
     private String firstName;
+
+    @Column(name = "lastName", length = 64, nullable = false)
     private String lastName;
 
-    @ManyToMany(mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();
+
+    @OneToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> books = new ArrayList<>();
 
     public Author() {
     }
@@ -49,11 +57,11 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public Set<Book> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 
