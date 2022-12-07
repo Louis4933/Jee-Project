@@ -3,44 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.84.0">
     <title>Nos bibliothèques</title>
 
     <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/library.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="headers.css" rel="stylesheet">
+    <!-- Custom script for font awesome icons -->
+    <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <main>
 
-    <header class="p-3 bg-dark text-white">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <img src="../src/img/header_logo.png" width="150" height="40">
-                </a>
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 text-white">Accueil</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Réserver un livre</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Nos bibliothèques</a></li>
-                </ul>
-
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Rechercher un livre..." aria-label="Search">
-                </form>
-
-                <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Se connecter</button>
-                    <button type="button" class="btn btn-warning">S'inscrire</button>
-                </div>
-            </div>
-        </div>
-    </header>
+    <header th:include="pages/header :: header" class="p-3 bg-dark text-white"></header>
 
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -64,7 +39,7 @@
                             <p class="card-text">La Bibliothèque nationale de France, ainsi dénommée depuis 1994, est la bibliothèque nationale de la République française, inaugurée sous cette nouvelle appellation le 30 mars 1995 par le président de la République, François Mitterrand.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Voir les livres disponibles</button>
+                                    <button type="button" onclick="location.href = '/library';" class="btn btn-sm btn-outline-secondary">Voir les livres disponibles</button>
                                 </div>
                                 <small class="text-muted">Quai François Mauriac, 75706 Paris</small>
                             </div>
@@ -149,9 +124,8 @@
     </div>
 </footer>
 
-</main>
-
-    <script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </body>
 </html>

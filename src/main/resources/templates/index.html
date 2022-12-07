@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accueil</title>
+
+    <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+
+    <!-- Custom script for font awesome icons -->
+    <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<main>
+
+    <header th:include="pages/header :: header" class="p-3 bg-dark text-white"></header>
+
+    <div id="carouselHero" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://www.slate.fr/sites/default/files/styles/1680x980/public/000_iy4gm_0.jpg" alt="">
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 class="text-white">Emprunter vos livres directement depuis chez vous.</h1>
+                        <h5>Notre site a pour but de faciliter le prêt de livres auprès des bibliothèques en fournissant une prise en charge en ligne.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-4 py-5" id="hanging-icons">
+        <h2 class="pb-2 border-bottom">Nos objectifs</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+                <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                    <i class="fa-solid fa-book"></i>
+                </div>
+                <div>
+                    <h2 class="text-primary">Un grand choix de livres</h2>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                    <i class="fa-sharp fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                    <h2 class="text-primary">Proche de chez vous</h2>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <div>
+                    <h2 class="text-primary">Une facilité d'utilisation</h2>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted py-5 bg-dark text-white">
+    <div class="container text-center">
+        <p class="mb-1">Réservez vos livres préférées dans l'ensemble de nos bibliothèques!</p>
+        <p class="mb-0"><a href="/">Page d'accueil</a></p>
+    </div>
+</footer>
+
+<script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</body>
+</html>
