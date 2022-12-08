@@ -19,6 +19,7 @@ public class SiteUser {
 
     private String address;
 
+    private String cookieCode;
     private UserRole userRole;
     public List<Book> favorites = new ArrayList<>();
 
@@ -79,6 +80,15 @@ public class SiteUser {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Column(name = "cookie", length = 64)
+    public String getCookieCode() {
+        return cookieCode;
+    }
+
+    public void setCookieCode(String cookieCode) {
+        this.cookieCode = cookieCode;
     }
 
     public UserRole getUserRole() {

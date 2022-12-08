@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mon profile</title>
+
+    <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
+    <link href="css/library.css" rel="stylesheet">
+
+    <!-- Custom script for font awesome icons -->
+    <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header th:include="pages/header :: header" class="p-3 bg-dark text-white"></header>
+
+    <div class="container">
+        <main>
+            <section class="gradient-custom-2">
+                <div class="container py-5">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col col-lg-13 col-xl-13">
+                            <div class="card">
+                                <div class="rounded-top text-white d-flex flex-row cover" style="background-color: #000; height:200px;">
+                                    <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                             alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                                             style="width: 150px; z-index: 1">
+                                        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;" onclick="location.href = '/editprofile';">
+                                            Edit profile
+                                        </button>
+                                    </div>
+                                    <div class="ms-3" style="margin-top: 130px;">
+                                        <h5>Dorian Carlone</h5>
+                                        <p>dorian@carlone.fr</p>
+                                    </div>
+                                </div>
+                                <div class="card-body p-4 py-5 text-black" style="margin-top: 20px">
+                                    <div class="mb-5 py-2">
+                                        <div class="p-4" style="background-color: #f8f9fa;">
+                                            <p class="font-italic mb-1"><i class="fa-solid fa-location-dot"></i> 3 Rue Henri IV</p>
+                                            <p class="font-italic mb-1"><i class="fa-solid fa-book"></i> Fantastique, Comédie</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <p class="lead fw-normal mb-0">Votre liste de souhaits</p>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="card card-body py-3">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink">
+                                                    <img class="content" src="https://static.fnac-static.com/multimedia/Images/FR/NR/5e/d5/8d/9295198/1540-1/tsp20221203063351/Jamais-plus.jpg" width="150" height="150" alt="">
+                                                </div>
+                                                <div class="flex-grow">
+
+                                                    <div class="media-body">
+                                                        <h6 class="media-title font-weight-semibold">Jamais plus</h6>
+
+                                                        <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                                                            <li class="list-inline-item text-muted">Colleen Hoover (Auteur)</li>
+                                                        </ul>
+
+                                                        <p class="mb-3">Ceux que nous aimons sont parfois ceux qui nous font le plus mal.
+
+
+                                                            Lily Blossom Bloom n'a pas eu une enfance très facile, entre un père violent et une mère qu'elle trouve soumise, mais elle a su s'en sortir dans la vie et est à l'aube de réaliser son grand rêve : ouvrir, à Boston, une boutique de fleurs.
+                                                            Elle vient de rencontrer un neurochirurgien, Ryle, charmant, ambitieux, visiblement aussi attiré par elle qu'elle l'est par lui. Le chemin de Lily vers le bonheur semble tout tracé. Elle hésite pourtant encore un peu : il n'est pas facile pour elle de se lancer dans une histoire sentimentale, avec des parents comme les siens.
+
+                                                            Choisir cette vie, c'est aussi tirer un trait sur son passé et Atlas, ce jeune homme qui a été son premier amour et qui a profondément marqué son adolescence.
+                                                            L'avenir semble limpide et simple mais il peut s'obscurcir très vite...</p>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+
+                                                    <div class="text-center">
+                                                        <h3 class="mb-0 font-weight-semibold text-success">Disponible</h3>
+
+                                                        <button type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-book"></i> Ajouter au panier</button>
+                                                        <button type="button" class="btn btn-dark mt-1 text-white"><i class="fa-solid fa-heart"></i> Supprimer de sa liste de souhaits</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body py-3 mt-2">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink">
+                                                    <img class="content" src="https://static.fnac-static.com/multimedia/Images/FR/NR/cb/b3/ac/11318219/1540-1/tsp20221125063253/Kilometre-zero.jpg" width="150" height="150" alt="">
+                                                </div>
+                                                <div class="flex-grow">
+
+                                                    <div class="media-body">
+                                                        <h6 class="media-title font-weight-semibold">Kilomètre zéro</h6>
+
+                                                        <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                                                            <li class="list-inline-item text-muted">Maud Ankaoua (Auteur)</li>
+                                                        </ul>
+
+                                                        <p class="mb-3">Maëlle, directrice financière d'une start-up en pleine expansion, n'a tout simplement pas le temps pour les rêves. Mais quand sa meilleure amie, Romane, lui demande un immense service - question de vie ou de mort -, elle accepte malgré elle de rejoindre le Népal. Elle ignore que l'ascension des Annapurnas qu'elle s'apprête à faire sera aussi le début d'un véritable parcours initiatique. Au cours d'expériences et de rencontres bouleversantes, Maëlle va apprendre les secrets du bonheur profond et transformer sa vie. Mais réussira-t-elle à sauver son amie ?</p>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+
+                                                    <div class="text-center">
+                                                        <h3 class="mb-0 font-weight-semibold text-danger">Non Disponible</h3>
+
+                                                        <button type="button" class="btn btn-dark mt-4 text-white disabled"><i class="fa-solid fa-book"></i> Ajouter au panier</button>
+                                                        <button type="button" class="btn btn-dark mt-1 text-white"><i class="fa-solid fa-heart"></i> Supprimer de sa liste de souhaits</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+    <footer th:include="pages/footer :: footer" class="text-muted py-5 bg-dark text-white"></footer>
+
+    <script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

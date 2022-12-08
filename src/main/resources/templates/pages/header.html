@@ -12,8 +12,12 @@
             </ul>
 
             <div class="text-end">
-                <button type="button" onclick="location.href = '/login';" class="btn btn-outline-light me-2">Se connecter</button>
-                <button type="button" onclick="location.href = '/register';" class="btn btn-warning">S'inscrire</button>
+                <ul th:if="${siteUser != null}" class="nav col-12 col-lg-auto me-lg-auto mb-3 justify-content-center mb-md-0">
+                    <li th:if="${siteUser != null}"><a href="/profile" class="nav-link px-2 text-white" th:utext="${siteUser.name} + ' ' + ${siteUser.surname}"></a></li>
+                    <li th:if="${siteUser != null}"><a href="/logout" class="nav-link px-2 text-white">Se déconnecter</a></li>
+                </ul>
+                <button th:if="${siteUser == null}" type="button" onclick="location.href = '/login';" class="btn btn-outline-light me-2">Se connecter</button>
+                <button th:if="${siteUser == null}" type="button" onclick="location.href = '/register';" class="btn btn-warning">S'inscrire</button>
             </div>
         </div>
     </div>
