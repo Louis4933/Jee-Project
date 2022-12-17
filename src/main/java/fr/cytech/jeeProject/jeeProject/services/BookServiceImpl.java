@@ -1,6 +1,7 @@
 package fr.cytech.jeeProject.jeeProject.services;
 
 import fr.cytech.jeeProject.jeeProject.beans.Book;
+import fr.cytech.jeeProject.jeeProject.beans.SiteUser;
 import fr.cytech.jeeProject.jeeProject.dao.BookDao;
 import fr.cytech.jeeProject.jeeProject.services.interfaces.BookService;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookById(Long bookId) {
         return bookDao.findById(bookId).orElse(null);
+    }
+
+    @Override
+    public List<Book> getBookByHolder(SiteUser siteUser) {
+        return bookDao.getBookByHolder(siteUser);
     }
 
     @Override

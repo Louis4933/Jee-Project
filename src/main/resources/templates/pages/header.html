@@ -2,7 +2,7 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <img src="img/header_logo.png" width="150" height="40">
+                <img src="/img/header_logo.png" width="150" height="40">
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-3 justify-content-center mb-md-0">
@@ -13,6 +13,8 @@
 
             <div class="text-end">
                 <ul th:if="${siteUser != null}" class="nav col-12 col-lg-auto me-lg-auto mb-3 justify-content-center mb-md-0">
+                    <li th:if="${siteUser != null}"><a href="/cart" class="nav-link px-2 text-white" th:text="${siteUser.bookCart.size}"></a></li>
+                    <li th:if="${siteUser != null}"><a href="/cart" class="nav-link px-2 text-white"> <i class="fa-solid fa-cart-shopping"></i></a></li>
                     <li th:if="${siteUser != null}"><a href="/profile" class="nav-link px-2 text-white" th:utext="${siteUser.name} + ' ' + ${siteUser.surname}"></a></li>
                     <li th:if="${siteUser != null}"><a href="/logout" class="nav-link px-2 text-white">Se déconnecter</a></li>
                 </ul>

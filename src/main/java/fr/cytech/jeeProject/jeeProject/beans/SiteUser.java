@@ -1,6 +1,8 @@
 package fr.cytech.jeeProject.jeeProject.beans;
 
 import fr.cytech.jeeProject.jeeProject.enums.UserRole;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class SiteUser {
     private String cookieCode;
     private UserRole userRole;
     public List<Book> favorites = new ArrayList<>();
+    public List<Book> bookCart = new ArrayList<>();
 
     public SiteUser(){
 
@@ -101,6 +104,7 @@ public class SiteUser {
 
     @Access(AccessType.PROPERTY)
     @ManyToMany(targetEntity = Book.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(name = "user_favorites", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     public List<Book> getFavorites() {
@@ -109,5 +113,18 @@ public class SiteUser {
 
     public void setFavorites(List<Book> favorites) {
         this.favorites = favorites;
+    }
+
+    @Access(AccessType.PROPERTY)
+    @ManyToMany(targetEntity = Book.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinTable(name = "user_book_cart", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    public List<Book> getBookCart() {
+        return bookCart;
+    }
+
+    public void setBookCart(List<Book> bookCart) {
+        this.bookCart = bookCart;
     }
 }

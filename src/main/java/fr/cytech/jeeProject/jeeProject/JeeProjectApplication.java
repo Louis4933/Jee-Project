@@ -13,12 +13,7 @@ public class JeeProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication app = new SpringApplication(JeeProjectApplication.class);
-		System.out.print("Starting app with System Args: [" );
-		for (String s : args) {
-			System.out.print(s + " ");
-		}
-		System.out.println("]");
-		app.run(args);
+		app.run();
 	}
 
 	@Bean

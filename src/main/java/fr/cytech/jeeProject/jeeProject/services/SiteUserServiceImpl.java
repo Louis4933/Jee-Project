@@ -21,6 +21,11 @@ public class SiteUserServiceImpl implements SiteUserService {
     }
 
     @Override
+    public SiteUser getSiteUserByCookie(String cookieId) {
+        return siteUserDao.getSiteUserByCookie(cookieId);
+    }
+
+    @Override
     public SiteUser getSiteUserById(Long siteUserId) {
         return siteUserDao.findById(siteUserId).orElse(null);
     }
@@ -28,6 +33,11 @@ public class SiteUserServiceImpl implements SiteUserService {
     @Override
     public List<SiteUser> getSiteUserList() {
         return (List<SiteUser>) siteUserDao.findAll();
+    }
+
+    @Override
+    public SiteUser validateUser(String email, String password) {
+        return siteUserDao.validateUser(email, password);
     }
 
     @Override

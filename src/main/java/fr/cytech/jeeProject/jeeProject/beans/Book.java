@@ -1,40 +1,42 @@
 package fr.cytech.jeeProject.jeeProject.beans;
 
 import fr.cytech.jeeProject.jeeProject.enums.BookFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Book {
 
     private Long id;
 
-    private String title;
-
-    private String resume;
+    private String title, resume, publicationDate, isbn, coverImage;
 
     private int numberPage;
 
-    private String publicationDate;
-
-    private String isbn;
     private BookFormat bookFormat;
 
     private Publisher publisher;
 
+    private SiteUser currentHolder;
+
     private List<Author> authors = new ArrayList<>();
 
-    public Book() {
+    public Book(String title, String resume, int numberPage, String publicationDate, String isbn, String coverImage, BookFormat bookFormat, Publisher publisher) {
+        this.title = title;
+        this.resume = resume;
+        this.numberPage = numberPage;
+        this.publicationDate = publicationDate;
+        this.isbn = isbn;
+        this.coverImage = coverImage;
+        this.bookFormat = bookFormat;
+        this.publisher = publisher;
     }
 
-    public Book(String title, String isbn) {
-        this.title = title;
-        this.isbn = isbn;
-    }
+    public Book() {}
 
 
     @Id
@@ -47,7 +49,7 @@ public class Book {
         this.id = id;
     }
 
-    @Column(name = "title", length = 64)
+    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -56,7 +58,7 @@ public class Book {
         this.title = title;
     }
 
-    @Column(name = "resume", length = 64)
+    @Column(name = "resume", length = 4096)
     public String getResume() {
         return resume;
     }
@@ -92,6 +94,15 @@ public class Book {
         this.isbn = isbn;
     }
 
+    @Column(name = "coverImage")
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
     public BookFormat getBookFormat() {
         return bookFormat;
     }
@@ -110,9 +121,20 @@ public class Book {
         this.publisher = publisher;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "site_user_id")
+    public SiteUser getCurrentHolder() {
+        return currentHolder;
+    }
+
+    public void setCurrentHolder(SiteUser currentHolder) {
+        this.currentHolder = currentHolder;
+    }
+
+    @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @Fetch(value = FetchMode.SUBSELECT)
     public List<Author> getAuthors() {
         return authors;
     }

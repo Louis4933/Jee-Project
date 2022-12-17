@@ -1,4 +1,4 @@
-@@charset "UTF-8";
+@charset "UTF-8";
 
 /*font-family:'Raleway', sans-serif; */
 body,html {
@@ -26,4 +26,15 @@ a,a:hover {
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 1px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+main {
+    position: relative;
+    min-height: 88.5vh;
 }

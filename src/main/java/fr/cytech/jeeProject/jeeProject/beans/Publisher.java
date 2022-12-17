@@ -3,9 +3,7 @@ package fr.cytech.jeeProject.jeeProject.beans;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Publisher {
@@ -14,28 +12,23 @@ public class Publisher {
 
     private String name;
 
-    private String addressLine1;
+    private String addressLine;
 
-    private String city;
+    public List<Book> books = new ArrayList<>();
 
-    private String state;
-
-    private String zip;
-
-    private List<Book> books = new ArrayList<>();
-
-    public Publisher() {
+    public Publisher(String name, String addressLine) {
+        this.name = name;
+        this.addressLine = addressLine;
     }
+
+    public Publisher() {}
 
     @Override
     public String toString() {
         return "Publisher{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", addressLine1='" + addressLine1 + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
+                ", addressLine1='" + addressLine + '\'' +
                 '}';
     }
 
@@ -73,40 +66,13 @@ public class Publisher {
         this.name = name;
     }
 
-    @Column(name = "addressLine1", length = 64)
-    public String getAddressLine1() {
-        return addressLine1;
+    @Column(name = "addressLine", length = 64)
+    public String getAddressLine() {
+        return addressLine;
     }
 
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
-    }
-
-    @Column(name = "city", length = 64)
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    @Column(name = "state", length = 64)
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    @Column(name = "zip", length = 64)
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setAddressLine(String addressLine) {
+        this.addressLine = addressLine;
     }
 
     @OneToMany(cascade=CascadeType.ALL)

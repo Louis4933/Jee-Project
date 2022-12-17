@@ -30,87 +30,24 @@
         <div class="container">
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img class="bd-placeholder-img card-img-top" src="https://media.admagazine.fr/photos/63207bb614420dbf05ebc6b1/16:9/w_2560%2Cc_limit/La%2520salle%2520Ovale%2520re%25CC%2581nove%25CC%2581e%2520%25C2%25A9%2520Jean-Christophe%2520Ballot%2520-%2520BnF%2520-%2520Oppic.jpg" width="100%" height="225">
+                <tr th:each="library: ${libraries}">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" th:src="@{${library.backgroundImage}}" width="100%" height="225" alt="">
 
-                        <div class="card-body">
-                            <span><b>Bibliothèque Nationale de France</b> </br></span>
-                            <p class="card-text">La Bibliothèque nationale de France, ainsi dénommée depuis 1994, est la bibliothèque nationale de la République française, inaugurée sous cette nouvelle appellation le 30 mars 1995 par le président de la République, François Mitterrand.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" onclick="location.href = '/library';" class="btn btn-sm btn-outline-secondary">Voir les livres disponibles</button>
+                            <div class="card-body">
+                                <span><b th:text="${library.name}"></b> </br></span>
+                                <p class="card-text" th:text="${library.description}"></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" th:onClick="'location.href = \'/library/' + @{${library.urlShort}} + '\''" class="btn btn-sm btn-outline-secondary">Voir les livres disponibles</button>
+                                    </div>
+                                    <small class="text-muted" th:text="${library.addressLine}"></small>
                                 </div>
-                                <small class="text-muted">Quai François Mauriac, 75706 Paris</small>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img class="bd-placeholder-img card-img-top" src="https://static.affluences.media/sites-pictures/sites/HJTwG9lCz.jpeg" width="100%" height="225">
-
-                        <div class="card-body">
-                            <span><b>Bibliothèque Forney</b> </br></span>
-                            <p class="card-text">La Société des Amis de la Bibliothèque Forney fut créée en juin 1914. Elle fut fondée par Henri Clouzot, conservateur de la Bibliothèque Forney de 1908 à 1920.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Voir les livres disponibles</button>
-                                </div>
-                                <small class="text-muted">1 Rue du Figuier, 75004 Paris</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img class="bd-placeholder-img card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Courtyard_of_Institut_de_France_001.jpg" width="100%" height="225">
-
-                        <div class="card-body">
-                            <span><b>Bibliothèque Mazarine</b> </br></span>
-                            <p class="card-text">La bibliothèque Mazarine, communément appelée la Mazarine, est la plus ancienne bibliothèque publique de France.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Voir les livres disponibles</button>
-                                </div>
-                                <small class="text-muted">23 Quai de Conti, 75006 Paris</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img class="bd-placeholder-img card-img-top" src="https://media.timeout.com/images/105374251/image.jpg" width="100%" height="225">
-
-                        <div class="card-body">
-                            <span><b>Bibliothèque Sainte-Geneviève</b> </br></span>
-                            <p class="card-text">La bibliothèque Sainte-Geneviève est une bibliothèque interuniversitaire et publique située au 10, place du Panthéon, dans le 5ᵉ arrondissement de Paris.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Voir les livres disponibles</button>
-                                </div>
-                                <small class="text-muted">10 Pl. du Panthéon, 75005 Paris</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img class="bd-placeholder-img card-img-top" src="https://www.inha.fr/_contents/ametys-internal%253Asites/inha/ametys-internal%253Acontents/accueil-entete-de-page-2/_metadata/header/1/header-illustration/image/F96A1874%2520copie.jpg?objectId=defaultWebContent%3A%2F%2F2d8e2e6a-cd2a-40f6-b7a6-9f790908e0a5" width="100%" height="225">
-
-                        <div class="card-body">
-                            <span><b>Bibliothèque de l'Institut national d'histoire de l'art</b> </br></span>
-                            <p class="card-text">La bibliothèque de l'Institut national d'histoire de l'art est une bibliothèque de recherche spécialisée en histoire de l'art et archéologie.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Voir les livres disponibles</button>
-                                </div>
-                                <small class="text-muted">58 Rue de Richelieu, 75002 Paris</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </tr>
             </div>
         </div>
     </div>

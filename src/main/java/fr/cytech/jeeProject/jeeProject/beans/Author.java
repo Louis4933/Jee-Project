@@ -1,10 +1,11 @@
 package fr.cytech.jeeProject.jeeProject.beans;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Author {
@@ -17,8 +18,7 @@ public class Author {
 
     private List<Book> books = new ArrayList<>();
 
-    public Author() {
-    }
+    public Author() {}
 
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
@@ -35,7 +35,7 @@ public class Author {
         this.id = id;
     }
 
-    @Column(name = "firstName", length = 64)
+    @Column(name = "firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -44,7 +44,7 @@ public class Author {
         this.firstName = firstName;
     }
 
-    @Column(name = "lastName", length = 64)
+    @Column(name = "lastName")
     public String getLastName() {
         return lastName;
     }
@@ -53,9 +53,10 @@ public class Author {
         this.lastName = lastName;
     }
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.MERGE)
     @JoinTable(joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @Fetch(value = FetchMode.SUBSELECT)
     public List<Book> getBooks() {
         return books;
     }

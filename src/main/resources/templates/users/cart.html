@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mon profile</title>
+
+    <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
+    <link href="css/library.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Custom script for font awesome icons -->
+    <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header th:include="pages/header :: header" class="p-3 bg-dark text-white"></header>
+
+<div class="container">
+    <main>
+        <section class="gradient-custom-2">
+            <div class="container py-5">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col col-lg-13 col-xl-13">
+                        <div class="card">
+                            <div class="card-body p-4 py-5 text-black" style="margin-top: 20px">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <p class="lead fw-normal mb-0">Votre panier</p>
+                                </div>
+                                <div class="row g-2">
+                                    <tr th:each="book: ${siteUser.bookCart}">
+                                        <div class="card card-body py-3 mt-2">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink">
+                                                    <img class="content" th:src="@{${book.coverImage}}" width="150" height="150" alt="">
+                                                </div>
+                                                <div class="flex-grow">
+
+                                                    <div class="media-body">
+                                                        <h6 class="media-title font-weight-semibold" th:text="${book.title}"></h6>
+                                                        <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                                                            <li class="list-inline-item text-muted" th:each="author : ${book.authors}" th:text="${author.firstName} + ' ' + ${author.lastName}"></li>
+                                                        </ul>
+                                                        <p class="mb-3" th:text="${book.resume}"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="text-center">
+                                                        <button type="button" th:onClick="'location.href = \'/cart/remove/' + @{${book.id}} + '\''" class="btn btn-dark mt-4 text-white" th:disabled="${book.currentHolder}"><i class="fa-solid fa-book"></i> Supprimer du panier</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                    <button class="w-100 btn btn-primary btn-lg" th:onClick="'location.href = \'/cart/validate/\''" th:disabled="${siteUser.bookCart.isEmpty}" th:text="${siteUser.bookCart.isEmpty} ? 'Votre panier est vide' : 'Valider votre panier'" type="submit"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+
+<footer th:include="pages/footer :: footer" class="text-muted py-5 bg-dark text-white"></footer>
+
+<script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

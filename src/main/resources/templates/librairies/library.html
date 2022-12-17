@@ -6,7 +6,8 @@
     <title>Nos bibliothèques</title>
 
     <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/library.css" rel="stylesheet">
+    <link href="../css/library.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <!-- Custom script for font awesome icons -->
     <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
@@ -20,12 +21,12 @@
     <div id="carouselHero" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://media.admagazine.fr/photos/63207bb614420dbf05ebc6b1/16:9/w_2560%2Cc_limit/La%2520salle%2520Ovale%2520re%25CC%2581nove%25CC%2581e%2520%25C2%25A9%2520Jean-Christophe%2520Ballot%2520-%2520BnF%2520-%2520Oppic.jpg" alt="">
+                <img th:src="@{${library.backgroundImage}}" alt="">
 
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1 class="text-white">Bibliothèque Nationale de France</h1>
-                        <h5>La Bibliothèque nationale de France, ainsi dénommée depuis 1994, est la bibliothèque nationale de la République française, inaugurée sous cette nouvelle appellation le 30 mars 1995 par le président de la République, François Mitterrand.</h5>
+                        <h1 class="text-white" th:text="${library.name}"></h1>
+                        <h5 th:text="${library.description}"></h5>
                     </div>
                 </div>
             </div>
@@ -77,112 +78,39 @@
     </div>
 
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
     <div class="container d-flex justify-content-center mt-50 mb-50">
 
         <div class="row">
             <div class="col-md-15">
-
-                <div class="card card-body py-3">
-                    <div class="d-flex">
-                        <div class="flex-shrink">
-                            <img class="content" src="https://static.fnac-static.com/multimedia/Images/FR/NR/5e/d5/8d/9295198/1540-1/tsp20221203063351/Jamais-plus.jpg" width="150" height="150" alt="">
-                        </div>
-                        <div class="flex-grow">
-
-                            <div class="media-body">
-                                <h6 class="media-title font-weight-semibold">Jamais plus</h6>
-
-                                <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
-                                    <li class="list-inline-item text-muted">Colleen Hoover (Auteur)</li>
-                                </ul>
-
-                                <p class="mb-3">Ceux que nous aimons sont parfois ceux qui nous font le plus mal.
-
-
-                                    Lily Blossom Bloom n'a pas eu une enfance très facile, entre un père violent et une mère qu'elle trouve soumise, mais elle a su s'en sortir dans la vie et est à l'aube de réaliser son grand rêve : ouvrir, à Boston, une boutique de fleurs.
-                                    Elle vient de rencontrer un neurochirurgien, Ryle, charmant, ambitieux, visiblement aussi attiré par elle qu'elle l'est par lui. Le chemin de Lily vers le bonheur semble tout tracé. Elle hésite pourtant encore un peu : il n'est pas facile pour elle de se lancer dans une histoire sentimentale, avec des parents comme les siens.
-
-                                    Choisir cette vie, c'est aussi tirer un trait sur son passé et Atlas, ce jeune homme qui a été son premier amour et qui a profondément marqué son adolescence.
-                                    L'avenir semble limpide et simple mais il peut s'obscurcir très vite...</p>
-
-
+                <tr th:each="book: ${library.books}">
+                    <div class="card card-body py-3 mt-2">
+                        <div class="d-flex">
+                            <div class="flex-shrink">
+                                <img class="content" th:src="@{${book.coverImage}}" width="150" height="150" alt="">
                             </div>
-                        </div>
-                        <div class="col-2">
+                            <div class="flex-grow">
 
-                            <div class="text-center">
-                                <h3 class="mb-0 font-weight-semibold text-success">Disponible</h3>
+                                <div class="media-body">
+                                    <h6 class="media-title font-weight-semibold" th:text="${book.title}"></h6>
+                                    <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                                        <li class="list-inline-item text-muted" th:each="author : ${book.authors}" th:text="${author.firstName} + ' ' + ${author.lastName}"></li>
+                                    </ul>
+                                    <p class="mb-3" th:text="${book.resume}"></p>
+                                </div>
+                            </div>
+                            <div class="col-2">
 
-                                <button type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-book"></i> Add to cart</button>
-                                <button type="button" class="btn btn-dark mt-1 text-white"><i class="fa-solid fa-heart"></i> Add to wishlist</button>
+                                <div class="text-center">
+                                    <h3 th:text="${book.currentHolder} ? 'Non Disponible' : 'Disponible'" th:class="${book.currentHolder} ? 'mb-0 font-weight-semibold text-danger' : 'mb-0 font-weight-semibold text-success'"></h3>
+
+                                    <button type="button" th:onClick="'location.href = \'/cart/add/' + @{${book.id}} + '\''" class="btn btn-dark mt-4 text-white" th:disabled="${book.currentHolder} OR ${siteUser == null}"><i class="fa-solid fa-book"></i> Ajouter au panier</button>
+                                    <button type="button" th:disabled="${siteUser == null}" th:if="${siteUser != null && siteUser.getFavorites().contains(book)}" th:onClick="'location.href = \'/wishlist/remove/' + @{${book.id}} + '\''" class="btn btn-danger mt-1 text-white"><i class="fa-solid fa-heart"></i> Supprimer de la liste de souhaits</button>
+                                    <button type="button" th:disabled="${siteUser == null}" th:unless="${siteUser != null && siteUser.getFavorites().contains(book)}" th:onClick="'location.href = \'/wishlist/add/' + @{${book.id}} + '\''" class="btn btn-danger mt-1 text-white"><i class="fa-solid fa-heart"></i> Ajouter à la liste de souhaits</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card card-body py-3 mt-2">
-                    <div class="d-flex">
-                        <div class="flex-shrink">
-                            <img class="content" src="https://static.fnac-static.com/multimedia/Images/FR/NR/ce/85/90/9471438/1540-1/tsp20221015062004/Et-ils-meurent-tous-les-deux-a-la-fin.jpg" width="150" height="150" alt="">
-                        </div>
-                        <div class="flex-grow">
-
-                            <div class="media-body">
-                                <h6 class="media-title font-weight-semibold">Et ils meurent tous les deux à la fin</h6>
-
-                                <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
-                                    <li class="list-inline-item text-muted">Adam Silvera (Auteur)</li>
-                                </ul>
-
-                                <p class="mb-3">Le 5 septembre, un peu après minuit, Mateo et Rufus reçoivent chacun le funeste appel. Ils ne se connaissent pas, mais cherchent tous deux à se faire un nouvel ami en ce jour fi nal. Heureusement, il existe aussi une appli pour ça, Le Dernier Ami. Grâce à elle, Rufus et Mateo vont se rencontrer pour une ultime grande aventure : vivre toute une vie en une seule journée.</p>
-
-
-                            </div>
-                        </div>
-                        <div class="col-2">
-
-                            <div class="text-center">
-                                <h3 class="mb-0 font-weight-semibold text-success">Disponible</h3>
-
-                                <button type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-book"></i> Add to cart</button>
-                                <button type="button" class="btn btn-dark mt-1 text-white"><i class="fa-solid fa-heart"></i> Add to wishlist</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-body py-3 mt-2">
-                    <div class="d-flex">
-                        <div class="flex-shrink">
-                            <img class="content" src="https://static.fnac-static.com/multimedia/Images/FR/NR/cb/b3/ac/11318219/1540-1/tsp20221125063253/Kilometre-zero.jpg" width="150" height="150" alt="">
-                        </div>
-                        <div class="flex-grow">
-
-                            <div class="media-body">
-                                <h6 class="media-title font-weight-semibold">Kilomètre zéro</h6>
-
-                                <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
-                                    <li class="list-inline-item text-muted">Maud Ankaoua (Auteur)</li>
-                                </ul>
-
-                                <p class="mb-3">Maëlle, directrice financière d'une start-up en pleine expansion, n'a tout simplement pas le temps pour les rêves. Mais quand sa meilleure amie, Romane, lui demande un immense service - question de vie ou de mort -, elle accepte malgré elle de rejoindre le Népal. Elle ignore que l'ascension des Annapurnas qu'elle s'apprête à faire sera aussi le début d'un véritable parcours initiatique. Au cours d'expériences et de rencontres bouleversantes, Maëlle va apprendre les secrets du bonheur profond et transformer sa vie. Mais réussira-t-elle à sauver son amie ?</p>
-
-
-                            </div>
-                        </div>
-                        <div class="col-2">
-
-                            <div class="text-center">
-                                <h3 class="mb-0 font-weight-semibold text-danger">Non Disponible</h3>
-
-                                <button type="button" class="btn btn-dark mt-4 text-white disabled"><i class="fa-solid fa-book"></i> Add to cart</button>
-                                <button type="button" class="btn btn-dark mt-1 text-white"><i class="fa-solid fa-heart"></i> Add to wishlist</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </tr>
             </div>
         </div>
 
