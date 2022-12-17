@@ -37,6 +37,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> findBookWithSearchField(String query) {
+        return bookDao.findBookWithSearchField(query);
+    }
+
+    @Override
     public Book updateBook(Book book, Long bookId) {
 
         Book bookDb = bookDao.findById(bookId).orElse(null);

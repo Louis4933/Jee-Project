@@ -12,4 +12,7 @@ public interface BookDao extends CrudRepository<Book, Long> {
     @Query(value = "SELECT u FROM Book u WHERE u.currentHolder = ?1")
     List<Book> getBookByHolder(SiteUser siteUser);
 
+    @Query(value = "SELECT u FROM Book u WHERE u.title LIKE '%?1%'")
+    List<Book> findBookWithSearchField(String query);
+
 }

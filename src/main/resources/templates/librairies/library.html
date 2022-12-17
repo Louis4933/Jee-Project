@@ -44,9 +44,9 @@
                         <div class="row">
                             <div class="col-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-text" placeholder="Search books...." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" id="search-button" class="form-control input-text" placeholder="Rechercher un livre..." aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-warning btn-lg" type="button"><i class="fa fa-search"></i></button>
+                                        <button class="btn btn-outline-warning btn-lg" type="button" onclick="showDetails();"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="col pt-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckWishlist">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckWishlist" th:disabled="${siteUser == null}">
                                     <label class="form-check-label" for="flexCheckWishlist">
                                         Wishlist
                                     </label>
@@ -82,7 +82,7 @@
 
         <div class="row">
             <div class="col-md-15">
-                <tr th:each="book: ${library.books}">
+                <tr th:each="book: ${books}">
                     <div class="card card-body py-3 mt-2">
                         <div class="d-flex">
                             <div class="flex-shrink">
@@ -129,29 +129,63 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 
-    $(function() {
-
-        $('input[type="checkbox"]').bind('change', function (v) {
-
-            if($(this).is(':checked')) {
-                if(this.id === "flexCheckDisponible"){
-                    window.location.href = window.location.href + "?disponible=true";
-                }
-                if(this.id === "flexCheckWishlist"){
-                    window.location.href = window.location.href + "?wishlist=true";
-                }
-            } else {
-                if(this.id === "flexCheckDisponible"){
-                    window.location.href = window.location.href + "?disponible=false";
-                }
-                if(this.id === "flexCheckWishlist"){
-                    window.location.href = window.location.href + "?wishlist=false";
-                }
-            }
-        });
-
+    $("#search-button").on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            showDetails();
+        }
     });
 
+    let searchParams = new URLSearchParams(window.location.search)
+
+    $('#flexCheckDisponible').change(function() {
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", searchParams.get("wishlist")];
+        let disponibleParam = ["disponible", this.checked === false ? null : this.checked];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        redirectWithChanges(params)
+    });
+
+    $('#flexCheckWishlist').change(function() {
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", this.checked === false ? null : this.checked];
+        let disponibleParam = ["disponible", searchParams.get("disponible")];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        redirectWithChanges(params)
+    });
+
+    if(searchParams.has('search')){
+        $('#search-button').val(searchParams.get('search'));
+    }
+    if(searchParams.has("wishlist") && searchParams.get("wishlist") === "true"){
+        $('#flexCheckWishlist').prop("checked", true);
+    }
+    if(searchParams.has("disponible") && searchParams.get("disponible") === "true"){
+        $('#flexCheckDisponible').prop("checked", true);
+    }
+
+    function redirectWithChanges(parameters){
+        let parameterUrl = parameters.filter(parameter => parameter[1] !== null).map(parameter => parameter[0] + "=" + parameter[1]).join("&");
+        window.location = window.location.pathname + (parameterUrl !== null ? '?' + parameterUrl : "");
+    }
+
+</script>
+
+<script>
+    function showDetails(){
+        let searchParams = new URLSearchParams(window.location.search)
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", searchParams.get("wishlist")];
+        let disponibleParam = ["disponible", searchParams.get("disponible")];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        console.log(params)
+        redirectWithChanges(params)
+    }
 </script>
 
 </body>
