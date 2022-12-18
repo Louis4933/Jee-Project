@@ -4,8 +4,11 @@ import fr.cytech.jeeProject.jeeProject.beans.*;
 import fr.cytech.jeeProject.jeeProject.dao.*;
 import fr.cytech.jeeProject.jeeProject.enums.BookFormat;
 import fr.cytech.jeeProject.jeeProject.enums.UserRole;
+import org.joda.time.DateTime;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -118,7 +121,12 @@ public class BootStrapData implements CommandLineRunner {
 
         siteUserDao.save(siteUser);
 
+        Date dt = new Date();
+        DateTime dtOrg = new DateTime(dt);
+        DateTime dtPlusOne = dtOrg.plusDays(1);
+
         jamaisPlus.setCurrentHolder(siteUser);
+        jamaisPlus.setDeadline(dtPlusOne.toDate());
 
         bookDao.save(jamaisPlus);
 

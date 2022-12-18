@@ -68,9 +68,9 @@
                                                     <div class="col-sm-2">
 
                                                         <div class="text-center">
-                                                            <button type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-circle-info"></i> En attente de récupération</button>
-                                                            <button type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-circle-info"></i> A rendre dans 10 jours</button>
-                                                            <button type="button" class="btn btn-dark mt-4 text-danger"><i class="fa-solid fa-circle-info"></i> Délai dépassé, veuillez vous rendre impérativement sur place</button>
+                                                            <button th:if="${book.deadline == null}" type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-circle-info"></i> En attente de récupération</button>
+                                                            <button th:if="${book.deadline != null && book.deadline.after(#dates.createNow())}" type="button" class="btn btn-dark mt-4 text-white" th:text="'À rendre le ' + ${#dates.format(book.deadline,'dd/MM/yyyy')}"><i class="fa-solid fa-circle-info"></i> A rendre dans 10 jours</button>
+                                                            <button th:if="${book.deadline != null && book.deadline.before(#dates.createNow())}" type="button" class="btn btn-dark mt-4 text-danger"><i class="fa-solid fa-circle-info"></i> Délai dépassé, veuillez vous rendre impérativement sur place</button>
                                                         </div>
                                                     </div>
                                                 </div>

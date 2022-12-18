@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,7 @@ public class Book {
     private Publisher publisher;
 
     private SiteUser currentHolder;
+    private Date deadline;
 
     private List<Author> authors = new ArrayList<>();
 
@@ -129,6 +131,16 @@ public class Book {
 
     public void setCurrentHolder(SiteUser currentHolder) {
         this.currentHolder = currentHolder;
+    }
+
+
+    @Column(name = "deadline")
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
     @ManyToMany(cascade=CascadeType.MERGE)
