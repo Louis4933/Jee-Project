@@ -75,7 +75,7 @@ public class Publisher {
         this.addressLine = addressLine;
     }
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name = "publisher_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     public List<Book> getBooks() {

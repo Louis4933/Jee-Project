@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Espace administrateur</title>
+
+    <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
+    <link href="css/library.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Custom script for font awesome icons -->
+    <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header th:include="pages/header :: header" class="p-3 bg-dark text-white"></header>
+
+<div class="container">
+    <main>
+        <section class="gradient-custom-2">
+            <div class="container py-5">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col col-lg-13 col-xl-13">
+                        <div class="card">
+                            <div class="rounded-top text-white d-flex flex-row cover" style="background-color: #000; height:200px;">
+                                <div class="card-body mt-5 text-center">
+                                    <h1>Espace Administrateur</h1>
+                                </div>
+                            </div>
+                            <div class="card-body p-4 py-5 text-black">
+                                <div class="mb-4 text-center row">
+                                    <div class="col px-md-5">
+                                        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;" onclick="location.href = '/add/book';">
+                                            Ajouter un livre
+                                        </button>
+                                    </div>
+
+                                    <div class="col px-md-5">
+                                        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;" onclick="location.href = '/add/author';">
+                                            Ajouter un auteur
+                                        </button>
+                                    </div>
+
+                                    <div class="col px-md-5">
+                                        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;" onclick="location.href = '/add/publisher';">
+                                            Ajouter un éditeur
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-1 mb-4">
+                                    <p class="lead fw-normal mb-0">Prêts en attente de validation</p>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+                                    <p class="lead fw-normal mb-0">Prêts en attente de retour</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+
+<footer th:include="pages/footer :: footer" class="text-muted py-5 bg-dark text-white"></footer>
+
+<script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

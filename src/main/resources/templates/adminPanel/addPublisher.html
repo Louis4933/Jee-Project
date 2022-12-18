@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ajouter un éditeur</title>
+
+    <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/profile.css" rel="stylesheet">
+    <link href="../css/library.css" rel="stylesheet">
+
+    <!-- Custom script for font awesome icons -->
+    <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header th:include="pages/header :: header" class="p-3 bg-dark text-white"></header>
+
+<div class="container">
+    <main>
+        <section class="gradient-custom-2">
+            <div class="container py-5">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col col-lg-13 col-xl-13">
+                        <div class="card">
+                            <div class="rounded-top text-white d-flex flex-row cover" style="background-color: #000; height:200px;">
+                                <div class="card-body mt-5 text-center">
+                                    <h1>Ajouter un éditeur</h1>
+                                </div>
+                            </div>
+                            <div class="card-body p-4 py-5 text-black">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <p class="lead fw-normal mb-0">Entrer les informations</p>
+                                </div>
+                                <div class="row g-2">
+                                    <form class="needs-validation" action="/create/publisher" method="post">
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <label for="name" class="form-label">Nom</label>
+                                                <input type="text" class="form-control" name="name" id="name" required>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="address" class="form-label">Adresse</label>
+                                                <input type="text" class="form-control" name="address" id="address"  required>
+                                            </div>
+                                        </div>
+
+                                        <hr class="my-4">
+
+                                        <button class="w-100 btn btn-primary btn-lg" type="submit">Créer un nouvel éditeur</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+
+<footer th:include="pages/footer :: footer" class="text-muted py-5 bg-dark text-white"></footer>
+
+<script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -12,17 +12,9 @@ import java.util.List;
 public class SiteUser {
 
     private Long id;
-    private String email;
-    private String password;
-
-    private String name;
-
-    private String surname;
-
-    private String address;
-
-    private String cookieCode;
+    private String email, password, name, surname, address, cookieCode, Genres;
     private UserRole userRole;
+    private Library library;
     public List<Book> favorites = new ArrayList<>();
     public List<Book> bookCart = new ArrayList<>();
 
@@ -94,12 +86,31 @@ public class SiteUser {
         this.cookieCode = cookieCode;
     }
 
+    @Column(name = "genres")
+    public String getGenres() {
+        return Genres;
+    }
+
+    public void setGenres(String genres) {
+        Genres = genres;
+    }
+
     public UserRole getUserRole() {
         return userRole;
     }
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "library_id")
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
     }
 
     @Access(AccessType.PROPERTY)

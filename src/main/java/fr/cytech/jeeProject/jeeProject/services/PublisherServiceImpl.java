@@ -26,6 +26,11 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
+    public Publisher getPublisherByName(String publisherName) {
+        return publisherDao.getPublisherByName(publisherName);
+    }
+
+    @Override
     public List<Publisher> getPublisherList() {
         return (List<Publisher>) publisherDao.findAll();
     }

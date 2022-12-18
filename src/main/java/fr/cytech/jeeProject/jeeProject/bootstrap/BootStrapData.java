@@ -56,20 +56,6 @@ public class BootStrapData implements CommandLineRunner {
         meurentALaFin.getAuthors().add(silvera);
         kilometreZero.getAuthors().add(ankaoua);
 
-
-        SiteUser siteUser = new SiteUser();
-        siteUser.setName("Dorian");
-        siteUser.setSurname("Carlone");
-        siteUser.setUserRole(UserRole.DEFAULT);
-        siteUser.setAddress("17 Rue Bernadotte");
-        siteUser.setPassword("rolandgarros");
-        siteUser.setEmail("dorian.carlone@yahoo.fr");
-        siteUser.setCookieCode("3e584755-1bdf-4afc-a02b-74f9a0d7c88d");
-
-        siteUserDao.save(siteUser);
-
-        jamaisPlus.setCurrentHolder(siteUser);
-
         bookDao.save(jamaisPlus);
         bookDao.save(meurentALaFin);
         bookDao.save(kilometreZero);
@@ -118,6 +104,23 @@ public class BootStrapData implements CommandLineRunner {
         libraryDao.save(libraryMazarine);
         libraryDao.save(librarySainteGenevieve);
         libraryDao.save(libraryNationalArtHistory);
+
+        SiteUser siteUser = new SiteUser();
+        siteUser.setName("Dorian");
+        siteUser.setSurname("Carlone");
+        siteUser.setUserRole(UserRole.ADMIN);
+        siteUser.setLibrary(libraryNationaleFrance);
+        siteUser.setAddress("17 Rue Bernadotte");
+        siteUser.setPassword("rolandgarros");
+        siteUser.setEmail("dorian.carlone@yahoo.fr");
+        siteUser.setCookieCode("3e584755-1bdf-4afc-a02b-74f9a0d7c88d");
+        siteUser.setGenres("Fantastique");
+
+        siteUserDao.save(siteUser);
+
+        jamaisPlus.setCurrentHolder(siteUser);
+
+        bookDao.save(jamaisPlus);
 
         System.out.println("Number of Books: " + bookDao.count());
         System.out.println("Number of Publishers: " + publisherDao.count());

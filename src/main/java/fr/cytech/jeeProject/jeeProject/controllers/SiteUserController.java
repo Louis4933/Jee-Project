@@ -51,6 +51,7 @@ public class SiteUserController {
         siteUser.setPassword(formData.get("password").get(0));
         siteUser.setEmail(formData.get("email").get(0));
         siteUser.setCookieCode(String.valueOf(java.util.UUID.randomUUID()));
+        siteUser.setGenres(formData.get("genres").get(0));
 
         siteUserDao.save(siteUser);
 
@@ -64,6 +65,24 @@ public class SiteUserController {
         formData.clear();
 
         return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/updateinfo", method = { RequestMethod.POST }, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView updateInfoUser(@RequestBody MultiValueMap<String, String> formData, HttpServletRequest request, HttpServletResponse response){
+
+        SiteUser siteUser = ModelDefaultAttributes.isUserConnected(request, siteUserService);
+        if(siteUser == null){ return new ModelAndView("redirect:/"); }
+
+        siteUser.setName(formData.get("firstName").get(0));
+        siteUser.setSurname(formData.get("lastName").get(0));
+        siteUser.setAddress(formData.get("address").get(0));
+        siteUser.setGenres(formData.get("genres").get(0));
+
+        siteUserDao.save(siteUser);
+
+        formData.clear();
+
+        return new ModelAndView("redirect:/profile");
     }
 
     @RequestMapping("/login")
@@ -121,6 +140,10 @@ public class SiteUserController {
     public String getEditProfilePage(HttpServletRequest request, Model model){
 
         ModelDefaultAttributes.getDefaultAttributes(model, request, siteUserService);
+        SiteUser siteUser = ModelDefaultAttributes.isUserConnected(request, siteUserService);
+        if(siteUser == null){ return "index"; }
+
+        model.addAttribute("siteUser", siteUser);
 
         return "users/editprofile";
     }

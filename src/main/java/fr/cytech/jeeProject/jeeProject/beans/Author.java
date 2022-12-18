@@ -61,7 +61,7 @@ public class Author {
         this.imageUrl = imageUrl;
     }
 
-    @OneToMany(cascade=CascadeType.MERGE)
+    @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     @Fetch(value = FetchMode.SUBSELECT)
