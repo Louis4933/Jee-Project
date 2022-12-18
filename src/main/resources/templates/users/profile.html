@@ -52,10 +52,10 @@
                                         <tr th:each="book: ${holdingBooks}">
                                             <div class="card card-body py-3 mt-2">
                                                 <div class="d-flex">
-                                                    <div class="flex-shrink">
+                                                    <div class="col-sm-2">
                                                         <img class="content" th:src="@{${book.coverImage}}" width="150" height="150" alt="">
                                                     </div>
-                                                    <div class="flex-grow">
+                                                    <div class="col-sm-8">
 
                                                         <div class="media-body">
                                                             <h6 class="media-title font-weight-semibold" th:text="${book.title}"></h6>
@@ -65,7 +65,7 @@
                                                             <p class="mb-3" th:text="${book.resume}"></p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-2">
+                                                    <div class="col-sm-2">
 
                                                         <div class="text-center">
                                                             <button type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-circle-info"></i> En attente de récupération</button>
