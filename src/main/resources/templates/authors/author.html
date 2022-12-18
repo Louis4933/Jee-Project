@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'Auteur - ' + ${author.firstName} + ' ' + ${author.lastName}"></title>
+
+    <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/library.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/profile.css" rel="stylesheet">
+    <link href="../css/author.css" rel="stylesheet">
+
+    <!-- Custom script for font awesome icons -->
+    <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<main>
+
+    <header th:include="pages/header :: header" class="p-3 bg-dark text-white"></header>
+
+    <div class="container">
+        <main>
+                <div class="container py-5">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="col col-lg-13 col-xl-13">
+                                <div class="card">
+                                    <div class="rounded-top text-white d-flex flex-row cover" style="background-color: #000; height:200px;">
+                                        <div class="ms-4 d-flex flex-column" style="width: 150px;">
+                                            <img th:src="@{${author.imageUrl}}" alt="" class="img-bg-top img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+                                        </div>
+                                        <div class="card-body mt-4">
+                                            <h5 class="card-title" th:text="${author.firstName} + ' ' + ${author.lastName}"></h5>
+                                            <a href="/authors" class="btn btn-primary mt-5">Voir la liste des auteurs</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container mt-50 mt-50">
+                                    <div class="container justify-content-center">
+
+                                        <div class="row">
+
+                                            <div class="col-md-15">
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="input-group">
+                                                                <input type="text" id="search-button" class="form-control input-text" th:placeholder="'Rechercher un livre de ' + ${author.firstName} + ' ' + ${author.lastName} + '...'" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                <div class="input-group-append">
+                                                                    <button class="btn btn-outline-warning btn-lg" type="button" onclick="showDetails();"><i class="fa fa-search"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="container d-flex justify-content-center mt-50 mb-50">
+
+                                    <div class="row">
+                                        <div class="col-md-15">
+                                            <tr th:each="book: ${books}">
+                                                <div class="card card-body py-3 mt-2">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink">
+                                                            <img class="content" th:src="@{${book.coverImage}}" width="150" height="150" alt="">
+                                                        </div>
+                                                        <div class="flex-grow">
+
+                                                            <div class="media-body">
+                                                                <h6 class="media-title font-weight-semibold" th:text="${book.title}"></h6>
+                                                                <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                                                                    <li class="list-inline-item text-muted" th:each="author : ${book.authors}" th:text="${author.firstName} + ' ' + ${author.lastName}"></li>
+                                                                </ul>
+                                                                <p class="mb-3" th:text="${book.resume}"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2">
+
+                                                            <div class="text-center">
+                                                                <h3 th:text="${book.currentHolder} ? 'Non Disponible' : 'Disponible'" th:class="${book.currentHolder} ? 'mb-0 font-weight-semibold text-danger' : 'mb-0 font-weight-semibold text-success'"></h3>
+
+                                                                <button type="button" th:onClick="'location.href = \'/cart/add/' + @{${book.id}} + '\''" class="btn btn-dark mt-4 text-white" th:disabled="${book.currentHolder} OR ${siteUser == null}"><i class="fa-solid fa-book"></i> Ajouter au panier</button>
+                                                                <button type="button" th:disabled="${siteUser == null}" th:if="${siteUser != null && siteUser.getFavorites().contains(book)}" th:onClick="'location.href = \'/wishlist/remove/' + @{${book.id}} + '\''" class="btn btn-danger mt-1 text-white"><i class="fa-solid fa-heart"></i> Supprimer de la liste de souhaits</button>
+                                                                <button type="button" th:disabled="${siteUser == null}" th:unless="${siteUser != null && siteUser.getFavorites().contains(book)}" th:onClick="'location.href = \'/wishlist/add/' + @{${book.id}} + '\''" class="btn btn-danger mt-1 text-white"><i class="fa-solid fa-heart"></i> Ajouter à la liste de souhaits</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </tr>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.container -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </div>
+
+</main>
+
+<footer class="text-muted py-5 bg-dark text-white">
+    <div class="container text-center">
+        <p class="mb-1">Réservez vos livres préférées dans l'ensemble de nos bibliothèques!</p>
+        <p class="mb-0"><a href="/">Page d'accueil</a></p>
+    </div>
+</footer>
+
+<script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+    $("#search-button").on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            showDetails();
+        }
+    });
+
+    let searchParams = new URLSearchParams(window.location.search)
+
+    $('#flexCheckDisponible').change(function() {
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", searchParams.get("wishlist")];
+        let disponibleParam = ["disponible", this.checked === false ? null : this.checked];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        redirectWithChanges(params)
+    });
+
+    $('#flexCheckWishlist').change(function() {
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", this.checked === false ? null : this.checked];
+        let disponibleParam = ["disponible", searchParams.get("disponible")];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        redirectWithChanges(params)
+    });
+
+    if(searchParams.has('search')){
+        $('#search-button').val(searchParams.get('search'));
+    }
+    if(searchParams.has("wishlist") && searchParams.get("wishlist") === "true"){
+        $('#flexCheckWishlist').prop("checked", true);
+    }
+    if(searchParams.has("disponible") && searchParams.get("disponible") === "true"){
+        $('#flexCheckDisponible').prop("checked", true);
+    }
+
+    function redirectWithChanges(parameters){
+        let parameterUrl = parameters.filter(parameter => parameter[1] !== null).map(parameter => parameter[0] + "=" + parameter[1]).join("&");
+        window.location = window.location.pathname + (parameterUrl !== null ? '?' + parameterUrl : "");
+    }
+
+</script>
+
+<script>
+    function showDetails(){
+        let searchParams = new URLSearchParams(window.location.search)
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", searchParams.get("wishlist")];
+        let disponibleParam = ["disponible", searchParams.get("disponible")];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        console.log(params)
+        redirectWithChanges(params)
+    }
+</script>
+
+</body>
+</html>

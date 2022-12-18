@@ -12,17 +12,16 @@ public class Author {
 
     private Long id;
 
-    private String firstName;
-
-    private String lastName;
+    private String firstName, lastName, imageUrl;
 
     private List<Book> books = new ArrayList<>();
 
     public Author() {}
 
-    public Author(String firstName, String lastName) {
+    public Author(String firstName, String lastName, String imageUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.imageUrl = imageUrl;
     }
 
     @Id
@@ -53,8 +52,17 @@ public class Author {
         this.lastName = lastName;
     }
 
+    @Column(name = "imageUrl")
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @OneToMany(cascade=CascadeType.MERGE)
-    @JoinTable(joinColumns = @JoinColumn(name = "author_id"),
+    @JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     @Fetch(value = FetchMode.SUBSELECT)
     public List<Book> getBooks() {

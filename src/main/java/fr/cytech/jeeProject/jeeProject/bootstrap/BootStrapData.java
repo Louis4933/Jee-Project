@@ -33,9 +33,9 @@ public class BootStrapData implements CommandLineRunner {
         Publisher robertLaffont = new Publisher("Robert Laffont", "92 avenue France, 75013 Paris");
         Publisher jaiLu = new Publisher("J'ai lu", "82 rue Saint-Lazare, 75009 Paris");
 
-        Author hoover = new Author("Colleen", "Hoover");
-        Author silvera = new Author("Adam", "Silvera");
-        Author ankaoua = new Author("Maud", "Ankaoua");
+        Author hoover = new Author("Colleen", "Hoover", "https://www.babelio.com/users/AVT_Colleen-Hoover_7574.jpg");
+        Author silvera = new Author("Adam", "Silvera", "https://cdn.writermag.com/2016/12/AdamSilvera_credit-Margot-Wood-e1482171189415.jpg");
+        Author ankaoua = new Author("Maud", "Ankaoua", "https://www.maud-ankaoua.com/img/maud-large.jpg");
 
         Book jamaisPlus = new Book("Jamais plus", "Ceux que nous aimons sont parfois ceux qui nous font le plus mal. Lily Blossom Bloom n'a pas eu une enfance très facile, entre un père violent et une mère qu'elle trouve soumise, mais elle a su s'en sortir dans la vie et est à l'aube de réaliser son grand rêve : ouvrir, à Boston, une boutique de fleurs. Elle vient de rencontrer un neurochirurgien, Ryle, charmant, ambitieux, visiblement aussi attiré par elle qu'elle l'est par lui. Le chemin de Lily vers le bonheur semble tout tracé. Elle hésite pourtant encore un peu : il n'est pas facile pour elle de se lancer dans une histoire sentimentale, avec des parents comme les siens. Choisir cette vie, c'est aussi tirer un trait sur son passé et Atlas, ce jeune homme qui a été son premier amour et qui a profondément marqué son adolescence. L'avenir semble limpide et simple mais il peut s'obscurcir très vite...",
                 512, "05/04/2018", "2755637080", "https://static.fnac-static.com/multimedia/Images/FR/NR/5e/d5/8d/9295198/1540-1/tsp20221203063351/Jamais-plus.jpg", BookFormat.POCHE, hugoPoche);

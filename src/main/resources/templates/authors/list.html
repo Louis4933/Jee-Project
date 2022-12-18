@@ -1,49 +1,153 @@
-<!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Spring Framework for JEE Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nos auteurs</title>
 
-    <!-- font -->
-    <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,300' rel='stylesheet' type='text/css'>
+    <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/library.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/authors.css" rel="stylesheet">
 
-    <!-- css -->
-    <link rel="stylesheet" href="../../static/css/style.css">
+    <!-- Custom script for font awesome icons -->
+    <script src="https://kit.fontawesome.com/d02003a27c.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<!-- header -->
-<header class="container-fluid header">
-    <div class="container">
-        <a href="#" class="logo"> Mon site </a>
-        <nav class="menu">
-            <a href="#"> Acceuil </a>
-            <a href="#"> Livres </a>
-            <a href="#"> Auteurs </a>
-        </nav>
+
+<main>
+
+    <header th:include="pages/header :: header" class="p-3 bg-dark text-white"></header>
+
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Nos auteurs</h1>
+                <p class="lead text-muted">L'ensemble de nos auteurs disponibles dans l'ensemble de nos bibliothèques!</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-50 mt-50">
+        <div class="container justify-content-center">
+
+            <div class="row">
+
+                <div class="col-md-15">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input type="text" id="search-button" class="form-control input-text" placeholder="Rechercher un auteur..." aria-label="nom de l'auteur">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-warning btn-lg" type="button" onclick="showDetails();"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
     </div>
-</header>
-<!-- end header -->
 
-<!-- bannière -->
-<section class="container-fluid banner">
 
-</section>
-<!-- end bannière -->
+    <div class="container">
+        <div class="container justify-content-center">
+            <div class="row hidden-md-up">
+                <tr th:each="author: ${authors}">
+                    <div class="col-md-4 mt-4 mb-3">
+                        <div class="card">
+                            <img th:src="@{${author.imageUrl}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${author.firstName} + ' ' + ${author.lastName}"></h5>
+                                <p class="card-text"><small class="text-muted" th:text="${author.getBooks().size} + ' livres'"></small></p>
+                                <a th:href="'/author/' + @{${author.id}}" class="btn btn-primary">Voir les livres disponibles</a>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+            </div>
+        </div>
 
-<h1>Author List</h1>
+    </div><!-- /.container -->
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-    </tr>
-    <tr th:each="author : ${authors}">
-        <td th:text="${author.id}">123</td>
-        <td th:text="${author.firstName}">Joe</td>
-        <td th:text="${author.lastName}">Smith</td>
-    </tr>
-</table>
+</main>
+
+<footer class="text-muted py-5 bg-dark text-white">
+    <div class="container text-center">
+        <p class="mb-1">Réservez vos livres préférées dans l'ensemble de nos bibliothèques!</p>
+        <p class="mb-0"><a href="/">Page d'accueil</a></p>
+    </div>
+</footer>
+
+<script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+    $("#search-button").on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            showDetails();
+        }
+    });
+
+    let searchParams = new URLSearchParams(window.location.search)
+
+    $('#flexCheckDisponible').change(function() {
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", searchParams.get("wishlist")];
+        let disponibleParam = ["disponible", this.checked === false ? null : this.checked];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        redirectWithChanges(params)
+    });
+
+    $('#flexCheckWishlist').change(function() {
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", this.checked === false ? null : this.checked];
+        let disponibleParam = ["disponible", searchParams.get("disponible")];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        redirectWithChanges(params)
+    });
+
+    if(searchParams.has('search')){
+        $('#search-button').val(searchParams.get('search'));
+    }
+    if(searchParams.has("wishlist") && searchParams.get("wishlist") === "true"){
+        $('#flexCheckWishlist').prop("checked", true);
+    }
+    if(searchParams.has("disponible") && searchParams.get("disponible") === "true"){
+        $('#flexCheckDisponible').prop("checked", true);
+    }
+
+    function redirectWithChanges(parameters){
+        let parameterUrl = parameters.filter(parameter => parameter[1] !== null).map(parameter => parameter[0] + "=" + parameter[1]).join("&");
+        window.location = window.location.pathname + (parameterUrl !== null ? '?' + parameterUrl : "");
+    }
+
+</script>
+
+<script>
+    function showDetails(){
+        let searchParams = new URLSearchParams(window.location.search)
+        let query = $('#search-button').val();
+        let queryParam = ["search", query];
+        let wishlistParam = ["wishlist", searchParams.get("wishlist")];
+        let disponibleParam = ["disponible", searchParams.get("disponible")];
+        let params = [];
+        params.push(queryParam, wishlistParam, disponibleParam);
+        console.log(params)
+        redirectWithChanges(params)
+    }
+</script>
 
 </body>
 </html>
