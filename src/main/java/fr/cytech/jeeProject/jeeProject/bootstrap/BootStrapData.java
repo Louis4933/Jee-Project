@@ -109,24 +109,36 @@ public class BootStrapData implements CommandLineRunner {
         libraryDao.save(libraryNationalArtHistory);
 
         SiteUser siteUser = new SiteUser();
-        siteUser.setName("Dorian");
-        siteUser.setSurname("Carlone");
-        siteUser.setUserRole(UserRole.ADMIN);
-        siteUser.setLibrary(libraryNationaleFrance);
-        siteUser.setAddress("17 Rue Bernadotte");
-        siteUser.setPassword("rolandgarros");
-        siteUser.setEmail("dorian.carlone@yahoo.fr");
+        siteUser.setName("Test");
+        siteUser.setSurname("User");
+        siteUser.setUserRole(UserRole.DEFAULT);
+        siteUser.setAddress("18 rue des lauriers");
+        siteUser.setPassword("test");
+        siteUser.setEmail("test@gmail.com");
         siteUser.setCookieCode("3e584755-1bdf-4afc-a02b-74f9a0d7c88d");
-        siteUser.setGenres("Fantastique");
+        siteUser.setGenres("Fantastique & Roman");
 
         siteUserDao.save(siteUser);
+
+        SiteUser adminUser = new SiteUser();
+        adminUser.setName("Admin");
+        adminUser.setSurname("User");
+        adminUser.setUserRole(UserRole.ADMIN);
+        adminUser.setLibrary(libraryNationaleFrance);
+        adminUser.setAddress("18 rue des administrateurs");
+        adminUser.setPassword("admin");
+        adminUser.setEmail("admin@gmail.com");
+        adminUser.setCookieCode("32gt5d9z-5ced-4afc-15az-2d8e78zt9r22");
+        adminUser.setGenres("Fantastique & Roman");
+
+        siteUserDao.save(adminUser);
 
         Date dt = new Date();
         DateTime dtOrg = new DateTime(dt);
         DateTime dtPlusOne = dtOrg.plusDays(1);
 
         jamaisPlus.setCurrentHolder(siteUser);
-        jamaisPlus.setDeadline(dtPlusOne.toDate());
+        //jamaisPlus.setDeadline(dtPlusOne.toDate());
 
         bookDao.save(jamaisPlus);
 

@@ -52,8 +52,70 @@
                                 <div class="d-flex justify-content-between align-items-center mt-1 mb-4">
                                     <p class="lead fw-normal mb-0">Prêts en attente de validation</p>
                                 </div>
+                                <div class="row g-2">
+                                    <tr th:each="book: ${booksWaitingCollect}">
+                                        <div class="card card-body py-3 mt-2">
+                                            <div class="d-flex">
+                                                <div class="col-sm-2">
+                                                    <img class="content" th:src="@{${book.coverImage}}" width="150" height="150" alt="">
+                                                </div>
+                                                <div class="col-sm-8">
+
+                                                    <div class="media-body">
+                                                        <h6 class="media-title font-weight-semibold" th:text="${book.title}"></h6>
+                                                        <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                                                            <li class="list-inline-item text-muted" th:each="author : ${book.authors}" th:text="${author.firstName} + ' ' + ${author.lastName}"></li>
+                                                        </ul>
+                                                        <p class="mb-3" th:text="${book.resume}"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                    <div class="text-center">
+                                                        <button th:if="${book.deadline == null}" type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-circle-info"></i> En attente de récupération</button>
+                                                        <button th:if="${book.deadline != null && book.deadline.after(#dates.createNow())}" type="button" class="btn btn-dark mt-4 text-white" th:text="'À rendre le ' + ${#dates.format(book.deadline,'dd/MM/yyyy')}"><i class="fa-solid fa-circle-info"></i> A rendre dans 10 jours</button>
+                                                        <button th:if="${book.deadline != null && book.deadline.before(#dates.createNow())}" type="button" class="btn btn-dark mt-4 text-danger"><i class="fa-solid fa-circle-info"></i> Délai dépassé, veuillez vous rendre impérativement sur place</button>
+                                                    </div>
+                                                    <button th:onClick="'location.href = \'/validate/' + @{${book.id}} + '?type=collected\''" type="button" class="btn btn-success mt-4 text-white"><i class="fa-solid fa-check"></i> Valider le prêt du livre</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                    <h6 class="m-lg-1" th:if="${booksWaitingCollect.isEmpty}" th:text="'Aucun prêt en attente de validation'"></h6>
+                                </div>
                                 <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
                                     <p class="lead fw-normal mb-0">Prêts en attente de retour</p>
+                                </div>
+                                <div class="row g-2">
+                                    <tr th:each="book: ${booksAlreadyCollected}">
+                                        <div class="card card-body py-3 mt-2">
+                                            <div class="d-flex">
+                                                <div class="col-sm-2">
+                                                    <img class="content" th:src="@{${book.coverImage}}" width="150" height="150" alt="">
+                                                </div>
+                                                <div class="col-sm-8">
+
+                                                    <div class="media-body">
+                                                        <h6 class="media-title font-weight-semibold" th:text="${book.title}"></h6>
+                                                        <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                                                            <li class="list-inline-item text-muted" th:each="author : ${book.authors}" th:text="${author.firstName} + ' ' + ${author.lastName}"></li>
+                                                        </ul>
+                                                        <p class="mb-3" th:text="${book.resume}"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                    <div class="text-center">
+                                                        <button th:if="${book.deadline == null}" type="button" class="btn btn-dark mt-4 text-white"><i class="fa-solid fa-circle-info"></i> En attente de récupération</button>
+                                                        <button th:if="${book.deadline != null && book.deadline.after(#dates.createNow())}" type="button" class="btn btn-dark mt-4 text-white" th:text="'À rendre le ' + ${#dates.format(book.deadline,'dd/MM/yyyy')}"><i class="fa-solid fa-circle-info"></i> A rendre dans 10 jours</button>
+                                                        <button th:if="${book.deadline != null && book.deadline.before(#dates.createNow())}" type="button" class="btn btn-dark mt-4 text-danger"><i class="fa-solid fa-circle-info"></i> Délai dépassé, veuillez vous rendre impérativement sur place</button>
+                                                    </div>
+                                                    <button th:onClick="'location.href = \'/validate/' + @{${book.id}} + '?type=returned\''" type="button" class="btn btn-success mt-4 text-white"><i class="fa-solid fa-check"></i> Valider le retour du livre</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                    <h6 class="m-lg-1" th:if="${booksAlreadyCollected.isEmpty}" th:text="'Aucun prêt en attente de retour'"></h6>
                                 </div>
                             </div>
                         </div>

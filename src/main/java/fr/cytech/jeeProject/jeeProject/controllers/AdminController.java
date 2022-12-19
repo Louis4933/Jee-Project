@@ -9,19 +9,19 @@ import fr.cytech.jeeProject.jeeProject.services.interfaces.AuthorService;
 import fr.cytech.jeeProject.jeeProject.services.interfaces.BookService;
 import fr.cytech.jeeProject.jeeProject.services.interfaces.PublisherService;
 import fr.cytech.jeeProject.jeeProject.services.interfaces.SiteUserService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +53,10 @@ public class AdminController {
         ModelDefaultAttributes.getDefaultAttributes(model, request, siteUserService);
         SiteUser siteUser = ModelDefaultAttributes.isUserConnected(request, siteUserService);
         if(siteUser == null || siteUser.getUserRole() != UserRole.ADMIN){ return new ModelAndView("redirect:/"); }
+
+        model.addAttribute("siteUser", siteUser);
+        model.addAttribute("booksWaitingCollect", siteUser.getLibrary().getBooks().stream().filter(book -> book.getCurrentHolder() != null && book.getDeadline() == null).collect(Collectors.toList()));
+        model.addAttribute("booksAlreadyCollected", siteUser.getLibrary().getBooks().stream().filter(book -> book.getCurrentHolder() != null && book.getDeadline() != null).collect(Collectors.toList()));
 
         return new ModelAndView("adminPanel/admin");
     }
@@ -151,6 +155,32 @@ public class AdminController {
         publisherDao.save(publisher);
 
         formData.clear();
+
+        return new ModelAndView("redirect:/admin");
+    }
+
+    @RequestMapping(value = "/validate/{id}")
+    public ModelAndView validateBookState(@PathVariable(value = "id", required = true) Long id, @RequestParam(value = "type", required = true) String type, HttpServletRequest request, Model model){
+
+        ModelDefaultAttributes.getDefaultAttributes(model, request, siteUserService);
+        Book book = bookService.getBookById(id);
+        if(book != null){
+
+            if(type.equalsIgnoreCase("collected")){
+
+                Date dt = new Date();
+                DateTime dtOrg = new DateTime(dt);
+                DateTime dtPlusOne = dtOrg.plusDays(10);
+
+                book.setDeadline(dtPlusOne.toDate());
+            }
+            if(type.equalsIgnoreCase("returned")){
+                book.setDeadline(null);
+                book.setCurrentHolder(null);
+            }
+
+            bookDao.save(book);
+        }
 
         return new ModelAndView("redirect:/admin");
     }
